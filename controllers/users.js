@@ -6,7 +6,7 @@ module.exports = function(_, passport, User){
         SetRouting: function(router){
             router.get('/', this.indexPage);
             router.get('/signup', this.getSignUp);
-            router.get('/home', this.homePage);
+            
 
             router.get('/auth/facebook', this.getFacebookLogin);
             router.get('/auth/facebook/callback', this.facebookLogin);
@@ -16,9 +16,6 @@ module.exports = function(_, passport, User){
             
             router.post('/', User.LoginValidation, this.postLogin);
             router.post('/signup', User.SignUpValidation, this.postSignUp);
-        },
-        homePage:function(req,res){
-            return res.render('home');
         },
         
         indexPage: function(req, res){
