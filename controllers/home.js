@@ -1,19 +1,31 @@
 const path= require('path');
 const fs = require('fs');
 const uuidv4 = require('uuid/v4');
-module.exports = function(formidable){
+module.exports = function(formidable,Image,aws){
     return {
         SetRouting: function(router){
             router.get('/home', this.homePage,this.getUploadImage);
           //  router.get('/upload', this.getUploadImage); 
-            router.post('/uploadFile',  this.uploadFile);
-    
+            router.post('/uploadFile', aws.Upload.any(), this.uploadFile);
+            router.post('/home',this.ImagePostPage);
         },
 
         getUploadImage: function(req, res){
             const errors = req.flash('error');
             return res.render('index', {title: 'Cards AR | Login', messages: errors, hasErrors: errors.length > 0});
         },
+
+        ImagePostPage:function(req,res){
+           
+            const newImage = new Image();
+            newImage.name = req.body.club;
+            newImage.album = req.body.country;
+            newImage.image = req.body.upload;
+            newImage.save((err) => {
+                res.render('home');
+            })
+        },
+
         
         
         
