@@ -7,6 +7,7 @@ module.exports = function(_, passport, User){
             router.get('/', this.indexPage);
             router.get('/signup', this.getSignUp);
             
+            
 
             router.get('/auth/facebook', this.getFacebookLogin);
             router.get('/auth/facebook/callback', this.facebookLogin);
@@ -20,7 +21,7 @@ module.exports = function(_, passport, User){
         
         indexPage: function(req, res){
             const errors = req.flash('error');
-            return res.render('index', {title: 'Footballkk | Login', messages: errors, hasErrors: errors.length > 0});
+            return res.render('index', {title: 'Cards AR | Login', messages: errors, hasErrors: errors.length > 0});
         },
         
         postLogin: passport.authenticate('local.login', {
